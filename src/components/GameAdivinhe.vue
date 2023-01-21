@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1>GAME PSIQUS ADIVINHER</h1>
-        <input type="number" min="0" max="200" v-if="!!chuteAcerto" placeholder="digite um numero" v-model="numeroAdivinha">
-        <button @click="makeAcerto" v-if="!!chuteAcerto">ENVIAR NUMERO P/ ADIVINHAR</button>
-        <input type="number" min="0" max="200" v-model="chuteNumero" placeholder="Adivinhe o numero chutado:">
+        <input type="number" min="0" max="100" placeholder="digite um numero" v-if="!chuteAcerto" v-model="numeroAdivinha">
+        <button @click="makeAcerto" v-if="!chuteAcerto">ENVIAR NUMERO P/ ADIVINHAR</button>
+        <input type="number" min="0" max="100" v-model="chuteNumero" placeholder="Adivinhe o numero chutado:">
         <button @click="adivinhar">ADIVINHAR</button>
         <p>MEUS PONTOS: {{ pontos }}</p>
         <p>PONTOS DO INIMIGO: {{ pontosFriend }}</p>
