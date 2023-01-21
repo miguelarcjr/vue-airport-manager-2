@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1>GAME PSIQUS ADIVINHER</h1>
-        <input type="number" min="0" max="10" placeholder="digite um numero" v-model="numeroAdivinha">
-        <button @click="makeAcerto" :disabled="!!chuteAcerto">ENVIAR NUMERO P/ ADIVINHAR</button>
-        <input type="number" min="0" max="10" v-model="chuteNumero" placeholder="Adivinhe o numero chutado:">
+        <input type="number" min="0" max="200" v-if="!!chuteAcerto" placeholder="digite um numero" v-model="numeroAdivinha">
+        <button @click="makeAcerto" v-if="!!chuteAcerto">ENVIAR NUMERO P/ ADIVINHAR</button>
+        <input type="number" min="0" max="200" v-model="chuteNumero" placeholder="Adivinhe o numero chutado:">
         <button @click="adivinhar">ADIVINHAR</button>
         <p>MEUS PONTOS: {{ pontos }}</p>
         <p>PONTOS DO INIMIGO: {{ pontosFriend }}</p>
@@ -36,8 +36,8 @@ export default {
             this.sendDrink!({drink: 'negroni', withIce: true}, this.friendID)
         },
         makeAcerto() {
-            if(!(this.numeroAdivinha < 10 && this.numeroAdivinha > 0)) {
-                alert("APENAS NUMEROS DE 0 A 10!");
+            if(!(this.numeroAdivinha <= 200 && this.numeroAdivinha >= 0)) {
+                alert("APENAS NUMEROS DE 0 A 200!");
                 return;
             }
             this.sendAcerto!({acerto: this.numeroAdivinha}, this.friendID)
@@ -53,7 +53,8 @@ export default {
             } else {
                 this.pontosFriend = this.pontosFriend+1;
                 this.sendPontos!({pontos: this.pontosFriend}, this.friendID)
-                alert("NÃO FOI DESSA VEZ.")
+                const frase = this.chuteAcerto > this.chuteNumero ? "O NUMERO É MAIOR" : "O NUMERO É MENOR"
+                alert("NÃO FOI DESSA VEZ. "+frase)
             }
         }
     },
